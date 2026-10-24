@@ -13,7 +13,8 @@ public class ServerPacketHandler implements IPacketHandler {
 
     @Override
     public void onPacketData(INetworkManager iNetworkManager, Packet250CustomPayload packet250CustomPayload, Player player) {
-        PacketClientCommand.authenticate();
-        System.out.println("SERVER HANDLER");
+        // PacketClientCommand.authenticate();
+        // System.out.println("SERVER HANDLER");
+
     }
 }

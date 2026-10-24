@@ -14,7 +14,7 @@ import java.util.WeakHashMap;
 
 public class PacketClientCommand {
 
-    private static Map<NetLoginHandler, Packet205ClientCommand> connected = new WeakHashMap<NetLoginHandler, Packet205ClientCommand>();
+    private static final Map<NetLoginHandler, Packet205ClientCommand> connected = new WeakHashMap<NetLoginHandler, Packet205ClientCommand>();
 
     public static void authenticate() {
         System.out.println("AUTHENTICATING");
@@ -25,28 +25,28 @@ public class PacketClientCommand {
     }
 
     public static void onProcessClientCommand(Object packetObj, Object handlerObj) {
+
+        if (!(handlerObj instanceof NetLoginHandler)) {
+            return;
+        }
+
         final Packet205ClientCommand packet = (Packet205ClientCommand) packetObj;
         final NetLoginHandler handler = (NetLoginHandler) handlerObj;
+
         System.out.println(packet);
         System.out.println(handler);
+
         connected.put(handler, packet);
-        //while(true) {
-        Random r = new Random();
-        byte[] bytes = new byte[256];
-        r.nextBytes(bytes);
-        Packet250CustomPayload payload = new Packet250CustomPayload(McAuth.MOD_CHANNEL, bytes);
-        System.out.println(handler.getPlayer());
-        handler.myTCPConnection.addToSendQueue(payload);
 
 
 
-//        if (packet.forceRespawn == 0) {
-//            System.out.println("Получена команда начала игры (forceRespawn 0)");
-//
-//            if (handler instanceof NetLoginHandler) {
-//                NetLoginHandler loginHandler = (NetLoginHandler) handler;
-//
-//            }
-//        }
+//        while(true) {
+//        Random r = new Random();
+//        byte[] bytes = new byte[256];
+//        r.nextBytes(bytes);
+//        Packet250CustomPayload payload = new Packet250CustomPayload(McAuth.MOD_CHANNEL, bytes);
+//        System.out.println(handler.getPlayer());
+//        handler.myTCPConnection.addToSendQueue(payload);
+
     }
 }
